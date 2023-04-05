@@ -31,12 +31,32 @@ export const surveyJson = {
         type: "tagbox",
         choices: [
           {
-            "value": "coloracao",
-            "text": "Coloração"
+            "value": "imagem",
+            "text": "Consultoria de imagem completa"
           },
           {
-            "value": "pesquisa",
-            "text": "Pesquisa"
+            "value": "estilo",
+            "text": "Análise de estilo e identidade pessoal"
+          },
+          {
+            "value": "coloracao",
+            "text": "Análise de coloração pessoal"
+          },
+          {
+            "value": "clearing",
+            "text": "Closet clearing"
+          },
+          {
+            "value": "looks",
+            "text": "Montagem de looks"
+          },
+          {
+            "value": "palestra",
+            "text": "Palestra e oficinas",
+          },
+          {
+            "value": "outros",
+            "text": "Outros",
           }
         ]
       },

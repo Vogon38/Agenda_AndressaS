@@ -1,24 +1,33 @@
 import { useCallback } from 'react';
-
-// Default V2 theme
-import 'survey-core/defaultV2.min.css';
-// Modern theme
-// import 'survey-core/modern.min.css';
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+import { getDatabase, ref, set, push } from "firebase/database";
 import { Model } from 'survey-core';
 import { Survey } from 'survey-react-ui';
 import { surveyJson } from './json.js';
+import 'survey-core/defaultV2.min.css';
 
-// const SURVEY_ID = 1;
+require('dotenv').config();
+
+const firebaseConfig = {
+  apiKey: process.env.FIREBASE_API_KEY,
+  authDomain: process.env.FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.FIREBASE_PROJECT_ID,
+  storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.FIREBASE_APP_ID,
+  measurementId: process.env.FIREBASE_MEASUREMENT_ID
+};
+
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+const database = getDatabase();
 
 function App() {
   const survey = new Model(surveyJson);
   const alertResults = useCallback((sender) => {
-    const results = JSON.stringify(sender.data);
-    alert(results);
-    // saveSurveyResults(
-    //   "https://your-web-service.com/" + SURVEY_ID,
-    //   sender.data
-    // )
+    const results = sender.data;
+    saveSurveyResults(results);
   }, []);
 
   survey.onComplete.add(alertResults);
@@ -26,17 +35,20 @@ function App() {
   return <Survey model={survey} />;
 }
 
-// function saveSurveyResults(url, json) {
-//   const request = new XMLHttpRequest();
-//   request.open('POST', url);
-//   request.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
-//   request.addEventListener('load', () => {
-//     // Handle "load"
-//   });
-//   request.addEventListener('error', () => {
-//     // Handle "error"
-//   });
-//   request.send(JSON.stringify(json));
-// }
+function saveSurveyResults(results) {
+  const surveyRef = ref(database, 'surveyResults');
+  const newSurveyRef = push(surveyRef); // Generate a new child location using a unique key
+
+  const { date, email, fullName, info, phone, service } = results; // Destructure the fields from the results object
+
+  set(newSurveyRef, {
+    date,
+    email,
+    fullName,
+    info,
+    phone,
+    service
+  });
+}
 
 export default App;
