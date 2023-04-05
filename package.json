@@ -9,6 +9,7 @@
     "axios": "^1.3.4",
     "dotenv": "^16.0.3",
     "firebase": "^9.19.1",
+    "fs": "^0.0.1-security",
     "mongodb": "^5.2.0",
     "os-browserify": "^0.3.0",
     "path": "^0.12.7",
@@ -54,5 +55,9 @@
     "fs": false,
     "os": false,
     "path": false
-  }
+  },
+  "description": "This is a simple survey app built with React and Firebase. Users can answer a survey and their responses will be saved to a Firebase Realtime Database.",
+  "main": "index.js",
+  "author": "",
+  "license": "ISC"
 }
