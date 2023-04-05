@@ -1,4 +1,9 @@
+import Dotenv from 'dotenv-webpack';
+
 module.exports = {
+    plugins: [
+        new Dotenv()
+      ],
     webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
         // Note: we provide webpack above so you should not `require` it
         // Perform customizations to webpack config

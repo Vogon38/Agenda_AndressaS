@@ -6,8 +6,9 @@ import { Model } from 'survey-core';
 import { Survey } from 'survey-react-ui';
 import { surveyJson } from './json.js';
 import 'survey-core/defaultV2.min.css';
+import dotenv from 'dotenv-browser';
 
-require('dotenv').config();
+dotenv.config();
 
 const firebaseConfig = {
   apiKey: process.env.FIREBASE_API_KEY,
