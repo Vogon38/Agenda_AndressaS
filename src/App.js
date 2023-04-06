@@ -39,8 +39,10 @@ function saveSurveyResults(results) {
   const newSurveyRef = push(surveyRef); // Generate a new child location using a unique key
 
   const { date, email, fullName, info, phone, service } = results; // Destructure the fields from the results object
+  const createdOn = new Date().toISOString(); // Generate a string with the current date and time in ISO format
 
   set(newSurveyRef, {
+    created_on: createdOn, // Set the created_on field to the generated string
     date,
     email,
     fullName,
