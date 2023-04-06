@@ -41,15 +41,28 @@ function saveSurveyResults(results) {
   const { date, email, fullName, info, phone, service } = results; // Destructure the fields from the results object
   const createdOn = new Date().toISOString(); // Generate a string with the current date and time in ISO format
 
-  set(newSurveyRef, {
-    created_on: createdOn, // Set the created_on field to the generated string
+  // Only include info, service, and email fields in the saved data if they exist
+  const data = {
+    created_on: createdOn,
     date,
-    email,
     fullName,
-    info,
-    phone,
-    service
-  });
+    phone
+  };
+
+  if (info) {
+    data.info = info;
+  }
+
+  if (service) {
+    data.service = service;
+  }
+
+  if (email) {
+    data.email = email;
+  }
+
+  set(newSurveyRef, data);
 }
+
 
 export default App;
